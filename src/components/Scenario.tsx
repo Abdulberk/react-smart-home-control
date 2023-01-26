@@ -9,9 +9,9 @@ const ScenarioRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: rgba(161, 177, 185, 0.3);
+  background-color: rgba(4, 26, 46, 0.5);
   width: 480px;
-
+  height: 64px;
 
 `;
 
@@ -19,45 +19,54 @@ const ScenarioIcon = styled.img`
 max-width: 64px;
 max-height: 64px;
 src: ${(props) => props.src};
-border: 1px solid red;
+
 
 `;
 
 const ScenarioLabel = styled.p`
 
-  height: 100%;
-  border: 1px solid red;
+  height: 40px;
+
   color: #30D5C8;
   width:100px;
-
-  white-space: nowrap; 
-  overflow: hidden;
-  text-overflow: ellipsis; 
-    flex: 1;
-
+  align-self: center;
+  text-align: left;
+ 
 `;
 
 const ScenarioToggleButtons = styled.div`
  
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  
   height: 100%;
-  border: 1px solid red;
-flex: 1;
+  
+ 
+  width: 200px;
+  column-gap: 10px;
+
+`;
+
+const UpButton = styled.button`
+  height: 50px;
+  width: 50px;
+  background-color: transparent;
+  border: 1px solid #c0c0c0;
+  border-radius: 3px;
+  color: white;
+  font-size: 16px;
+
 `;
 
 const AddScenarioButton = styled.button`
 
-  
-    height : 100%;
-  background-color: rgba(13, 14, 28, 0.86);
+   height : 100%;
+background-color: rgba(13, 14, 28, 0.86);
 max-width: 80px;
 font-size: 16px;
 color: white;
-margin-right: 5px;
+border:none;
 
 `;
 
@@ -66,17 +75,20 @@ type ScenarioProps = {
   label: string;
   buttonType: string;
   type: string;
+  onActivate: (id: string) => void
   
 };
 
-const Scenario = ({ icon, label, buttonType,type}: ScenarioProps) => {
+const Scenario = ({ icon, label, buttonType,type,onActivate}: ScenarioProps) => {
   const setButtonType = ()  => {
     switch (buttonType) {
       case "lamp":
         return (
           <ScenarioToggleButtons>
-            <button>1</button>
-            <button>0</button>
+
+            <UpButton>I</UpButton>
+            <UpButton>0</UpButton>
+          
           </ScenarioToggleButtons>
         );
       case "thermo":
@@ -84,8 +96,10 @@ const Scenario = ({ icon, label, buttonType,type}: ScenarioProps) => {
       case "valve":
         return (
           <ScenarioToggleButtons>
-            <button>1</button>
-            <button>0</button>
+
+            <UpButton>I</UpButton>
+            <UpButton>0</UpButton>
+      
           </ScenarioToggleButtons>
         );
       case "alarm":

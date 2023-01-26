@@ -26,9 +26,7 @@ export const scenarioSlice = createSlice({
     reducers: {
 
         addScenario (state,action: PayloadAction<Scenario>) {
-            console.log(action.payload)
-            console.log("işaret")
-
+           
          const checkExist = state.scenarios.find(scenario => scenario.id === action.payload.id);
 
             if (!checkExist) {     
@@ -47,9 +45,7 @@ export const scenarioSlice = createSlice({
 
         }
         ,
-        updateScenario (state,action:PayloadAction<Scenario>) {
-                
-            },
+       
 
         activateScenario (state,action:PayloadAction<Scenario>) {
 
@@ -86,7 +82,7 @@ export const scenarioSlice = createSlice({
 
 
 
-    },  
+    },
 
     },
 
@@ -94,6 +90,10 @@ export const scenarioSlice = createSlice({
 });
 
 
+
 export default scenarioSlice.reducer;
 
-export const {addScenario,deleteScenario,updateScenario,activateScenario,deactivateScenario} = scenarioSlice.actions;
+export const getActiveScenarios = (state: { scenario: ScenarioState }) => state.scenario.scenarios.filter(s => s.status === 'active');
+
+
+export const {addScenario,deleteScenario,activateScenario,deactivateScenario} = scenarioSlice.actions;

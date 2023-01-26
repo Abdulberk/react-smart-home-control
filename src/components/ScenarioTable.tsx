@@ -2,123 +2,186 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import Scenario from "./Scenario";
 import IScenario from "../redux/interfaces/Scenario";
 import styled from "styled-components";
-import bell from "../../public/assets/bell.png";
-import curt from "../../public/assets/curt.png";
-import lamp from "../../public/assets/lamp.png";
-import thermo from "../../public/assets/thermo.png";
-import valve from "../../public/assets/valve.png";
 import { useAppDispatch, useAppSelector } from "../redux/stores/store";
+import { activateScenario } from "../redux/slices/scenarioSlice";
+import { addScenario } from "../redux/slices/scenarioSlice";
 
 
-type TableProps = {
 
-  children: React.ReactNode;
-};
+const MainContainer = styled.div`
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 10px;
+
+  `;
 
 const AddNewScenarioContainer = styled.div`
-
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-width:100%;
-height:80px;
-border: 1px solid red;
-`;
-
-const AddNewScenarioUpperContainer = styled.div`
-display:flex;
-flex-direction:row;
-justify-content:space-between;
-align-items:center;
-width:100%;
-height:50%;
-border: 1px solid green;
-`;
-
-const AddNewScenarioLowerContainer = styled.div`
-display:flex;
-flex-direction:row;
-justify-content:space-between;
-align-items:center;
-width:100%;
-height:50%;
-border: 1px solid blue;
-`;
-
-const AddNewScenarioInput = styled.input`
-  width: 20%;
-  height: 30px;
-  border-radius: 5px;
-  margin: 15px;
-  background-color: #323d43;
-  font-size: 1.2rem;
-  color: white;
-`
-
-const AddNewScenarioButton= styled.button`
-width : 40px;
-height : 40px;
-background-color: rgba(13, 14, 28, 0.86);
-border-radius: 50%;
-font-size: 16px;
-
-`;
-
-
-const Table = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 500px;
-  height: 100%;
-  border: 1px solid black;
+  height: 120px;
+  background-color: rgba(13, 14, 28, 0.5);
+
+`;
+
+const AddNewScenarioUpperContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 50%;
+
+  button {
+
+    margin-right: 10px;
+  }
+
+`;
+
+const AddNewScenarioLowerContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  height: 50%;
+  padding: 10px;
+
+  label {
+    color: white;
+    font-size: 16px;
+    margin-left: 10px;
+  }
+
+  input {
+    margin-right: 10px;
+  }
+`;
+
+const AddNewScenarioInput = styled.input`
+  width: 50%;
+  height: 30px;
+  border-radius: 10px;
+  margin: 15px;
+  background-color: rgba(4, 26, 46, 0.5);
+  font-size: 1.2rem;
+  color: white;
+  border: none;
+  outline: none;
+  text-indent: 20px;
+`;
+
+interface ButtonProps {
+  src: string;
+  content: string;
+  
+}
+
+const AddNewScenarioButton = styled.button<ButtonProps>`
+  width: 40px;
+  height: 40px;
+  background-color: rgba(13, 14, 28, 0.86);
+  border-radius: 50%;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  background-image: url(${(props) => props.src});
+
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  :hover {
+    transform: scale(1.1);
+    transition: 0.2s;
+  }
+
+  :active {
+    transform: scale(0.9);
+    transition: 0.2s;
+
+  }
+
+  :after {
+    content: "${(props) => props.content}";
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    margin-top: 25px;
+    margin-left: -25px;
+    font-family: "Roboto", sans-serif;
+
+  }
+
+`;
+
+
+
+
+
+const Table = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 500px;
+  height: 460px;
+  overflow-y: scroll;
+  overflow-x: hidden;
   row-gap: 10px;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+
 `;
 
 const ScenarioTable = () => {
-
-
   interface Sort {
     sort: "all" | "sortbyname" | "sortbytype";
   }
 
   const [sort, setSort] = useState<Sort["sort"]>("all");
   const [newScenarioText, setNewScenarioText] = useState<string>("");
-  const scenarios: IScenario[]  = useAppSelector((state) => state.scenario.scenarios);
-
+  const scenarios: IScenario[] = useAppSelector(
+    (state) => state.scenario.scenarios
+  );
 
   const dispatch = useAppDispatch();
-  
 
-  const addScenario = (scenario: IScenario)  => {
+  const addNewScenario = (scenario: IScenario) => {
+    dispatch(addScenario(scenario));
 
-    dispatch(
-      {
-        type: "addScenario",
-        payload: scenario,
-      }
-    );
+    setNewScenarioText("");
 
-    console.log(scenarios)
+  };
 
-  }
-  
+  const handleActivateScenario = (id:IScenario) => {
+
+    dispatch(activateScenario(id));
+
+
+  };
+
+
 
   const handleScenarioText = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewScenarioText(event.target.value);
-    
   };
-
 
   const handleSort = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSort(event.target.value as Sort["sort"]);
-    console.log(event.target.value)
+    console.log(event.target.value);
   };
 
   const sortedScenarios = useMemo(() => {
-
     const getScenarios = [...scenarios];
     switch (sort) {
       case "all":
@@ -130,75 +193,82 @@ const ScenarioTable = () => {
     }
   }, [sort, scenarios]);
 
+
   return (
     <div>
-      
+      <MainContainer>
+
       <AddNewScenarioContainer>
         <AddNewScenarioUpperContainer>
-          <AddNewScenarioInput type="text" placeholder="Yeni senaryo adı" onChange={handleScenarioText} />
-       
-<button onClick={() => {
-  addScenario({
-            type: "lamp",
-            buttonType: "lamp",
-            icon: process.env.PUBLIC_URL + "/assets/lamp.png",
-            status: "passive",
-            label: newScenarioText ? newScenarioText : "New Scenario",
-            id: scenarios ? scenarios.length + 1 : 0,
-  });
-}}>Ekle</button>
+          <AddNewScenarioInput
+            type="text"
+            placeholder="Yeni senaryo adı"
+            onChange={handleScenarioText}
+            value={newScenarioText}
+          />
+
+          <AddNewScenarioButton src= {process.env.PUBLIC_URL + "/assets/cancel.png"} content = "İPTAL">
+
+          </AddNewScenarioButton>
 
 
-         
-          </AddNewScenarioUpperContainer>
-          <AddNewScenarioLowerContainer>
+          <AddNewScenarioButton src= {process.env.PUBLIC_URL + "/assets/add-button.png" } content = "KAYDET"
+            onClick={() =>
+              addNewScenario({
+                type: "lamp",
+                buttonType: "lamp",
+                icon: process.env.PUBLIC_URL + "/lamp.png",
+                status: "passive",
+                label: newScenarioText ? newScenarioText : "New Scenario",
+                id: scenarios ? scenarios.length + 1 : 0,
+              })
+            }
+          >
+          </AddNewScenarioButton>
+        </AddNewScenarioUpperContainer>
+        <AddNewScenarioLowerContainer>
           <label>
-        <input
-          type="radio"
-          name = "sort"
-          value="all"
-          onChange={handleSort}
-        />
-        Hepsi
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="sortbyname"
-         name = "sort"
-          onChange={handleSort}
-        />
-        A-Z
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="sortbytype"
-            name = "sort"
-          
-          onChange={handleSort}
-        />
-        Tip
-        
-      </label>
+            {" "}
+            Hepsi
+            <input type="radio" name="sort" value="all" onChange={handleSort} />
+          </label>
+          <label>
+            A-Z
+            <input
+              type="radio"
+              value="sortbyname"
+              name="sort"
+              onChange={handleSort}
+            />
+          </label>
 
-          </AddNewScenarioLowerContainer>
+          <label>
+            {" "}
+            Tip
+            <input
+              type="radio"
+              value="sortbytype"
+              name="sort"
+              onChange={handleSort}
+            />
+          </label>
+        </AddNewScenarioLowerContainer>
       </AddNewScenarioContainer>
       <Table>
-      
+        {sortedScenarios.map((scenario) => (
+          <Scenario
+            key={scenario.id}
+            label={scenario.label}
+            type={scenario.type}
+            buttonType={scenario.buttonType}
+            icon={scenario.icon}
+            onActivate={() => handleActivateScenario(scenario)
 
-{
-  sortedScenarios.map((scenario) => (
-    <Scenario key = {scenario.id} label = {scenario.label} type = {scenario.type} buttonType = {scenario.buttonType} icon = {scenario.icon} />
-    
-  ))
-}
-
-
-
-
+            }
+          />
+        ))}
       </Table>
-
+    </MainContainer>
     </div>
   );
 };
