@@ -8,6 +8,7 @@ import { addScenario } from "../redux/slices/scenarioSlice";
 
 
 
+
 const MainContainer = styled.div`
 
   display: flex;
@@ -163,14 +164,12 @@ const ScenarioTable = () => {
 
   };
 
-  const handleActivateScenario = (id:IScenario) => {
+  const handleActivateScenario = (id: IScenario["id"]) => {
 
     dispatch(activateScenario(id));
-
+    console.log(id);
 
   };
-
-
 
   const handleScenarioText = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewScenarioText(event.target.value);
@@ -221,6 +220,9 @@ const ScenarioTable = () => {
                 status: "passive",
                 label: newScenarioText ? newScenarioText : "New Scenario",
                 id: scenarios ? scenarios.length + 1 : 0,
+                selectedMode : "on"
+                
+            
               })
             }
           >
@@ -262,9 +264,8 @@ const ScenarioTable = () => {
             type={scenario.type}
             buttonType={scenario.buttonType}
             icon={scenario.icon}
-            onActivate={() => handleActivateScenario(scenario)
+            onClick = {() => handleActivateScenario(scenario.id)}
 
-            }
           />
         ))}
       </Table>

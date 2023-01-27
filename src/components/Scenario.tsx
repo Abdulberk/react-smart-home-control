@@ -4,6 +4,8 @@ import ShutterButtons from "./ShutterButtons";
 import ThermoButtons from "./ThermoButtons";
 import AlarmButtons from "./AlarmButtons";
 import ScenarioInterface from "../redux/interfaces/Scenario";
+import { useAppDispatch, useAppSelector } from "../redux/stores/store";
+import { activateScenario } from "../redux/slices/scenarioSlice";
 
 const ScenarioRow = styled.div`
   display: flex;
@@ -75,11 +77,13 @@ type ScenarioProps = {
   label: string;
   buttonType: string;
   type: string;
-  onActivate: (id: string) => void
-  
+  onClick: () => void;
+
 };
 
-const Scenario = ({ icon, label, buttonType,type,onActivate}: ScenarioProps) => {
+const Scenario = ({ icon, label, buttonType,type, onClick}: ScenarioProps) => {
+
+
   const setButtonType = ()  => {
     switch (buttonType) {
       case "lamp":
@@ -116,7 +120,8 @@ const Scenario = ({ icon, label, buttonType,type,onActivate}: ScenarioProps) => 
         <ScenarioIcon src={process.env.PUBLIC_URL + `/assets/${icon}`} />
         
         {setButtonType()}
-        <AddScenarioButton>EKLE</AddScenarioButton>
+        <AddScenarioButton onClick={onClick}>
+          EKLE</AddScenarioButton>
       </ScenarioRow>
     </div>
   );

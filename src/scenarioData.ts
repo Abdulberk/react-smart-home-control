@@ -1,4 +1,24 @@
 import Scenario from './redux/interfaces/Scenario'
+import { ShutterMode, AlarmMode, LampMode } from './components/resultsPanelComponents/ActiveScenario'
+
+const lampMood: LampMode = {
+    on: 'on',
+    off: 'off'
+  }
+
+  const shutterMood: ShutterMode = {
+    open: 'open',
+    close: 'close',
+    half : 'half'
+    }
+
+    const alarmMood: AlarmMode = {
+        home: 'home',
+        outside: 'outside'
+        }
+
+       
+
 
 var getDatas = (): Scenario[] => {
 
@@ -11,26 +31,19 @@ return  [
         icon : "./lamp.png",
         buttonType: "lamp",
         status: "passive",
+        selectedMode :  "off"
        
     },
 
     {
         id: 2,
-        type: "thermo",
-        label: "Kombi",
-        icon: "./thermo.png",
-        buttonType: "thermo",
+        type: "lamp",
+        label: "lamba",
+        icon: "./lamp.png",
+        buttonType: "alarm",
         status: "passive",
+        selectedMode : "on"
        
-    },
-
-    {
-        id: 3,
-        type: "thermo",
-        label: "panel kombi",
-        icon: "./thermo.png",
-        status: "passive",
-        buttonType: "thermo",
     },
 
     {
@@ -38,8 +51,10 @@ return  [
         type: "valve",
         label: "vana",
         icon: "./valve.png",
-        status: "passive",
+        status: "active",
         buttonType: "valve",
+        selectedMode : "off"
+
     },
 
     {
@@ -47,49 +62,55 @@ return  [
         type: "alarm",
         label: "Alarm",
         icon: "./bell.png",
-        status: "passive",
+        status: "active",
         buttonType: "alarm",
+        selectedMode :  "home"
     },
 
     {
         id: 6,
         type: "shutter",
-        label: "perde",
+        label: "perde1",
         icon: "./curt.png",
-        status: "passive",
+        status: "active",
         buttonType: "shutter",
+        selectedMode : "open",
     },
     {
         id: 7,
         type: "shutter",
-        label: "perde",
+        label: "perde2",
         icon: "./curt.png",
-        status: "passive",
+        status: "active",
         buttonType: "shutter",
+        selectedMode : "half",
     },
     {
         id: 8,
         type: "shutter",
-        label: "perde",
+        label: "perde3",
         icon: "./curt.png",
-        status: "passive",
+        status: "active",
         buttonType: "shutter",
+        selectedMode : "off",
     },
     {
         id: 9,
         type: "shutter",
-        label: "perde",
+        label: "perde4",
         icon: "./curt.png",
         status: "passive",
         buttonType: "shutter",
+        selectedMode : "open"
     },
     {
         id: 10,
         type: "shutter",
-        label: "perde",
+        label: "perde5",
         icon: "./curt.png",
         status: "active",
         buttonType: "shutter",
+        selectedMode : "close",
     },
 ]
 

@@ -39,8 +39,6 @@ column-gap: 30px;
 function ShutterButtons() {
 
 
-
-
   return (
    <div>
 
