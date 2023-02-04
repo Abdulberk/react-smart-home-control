@@ -48,15 +48,19 @@ export const scenarioSlice = createSlice({
 
       draftedScenarios[getIndex].degree = action.payload.degree
 
-      return {...state, scenarios: draftedScenarios}
+      return {...state, scenarios:draftedScenarios}
+
     
     },
 
 
+    
 
     updateMode(state, action: PayloadAction<ModeAction>) {
 
       
+
+
     
         const updatedScenarios = state.scenarios.map(scenario => {
           if (scenario.id === action.payload.id) {
