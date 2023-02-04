@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { ModeAction, updateMode } from "../redux/slices/scenarioSlice";
-import { AlarmMode } from "./resultsPanelComponents/ActiveScenario";
+import { ValveMode } from "./resultsPanelComponents/ActiveScenario";
 import withToggle from "./withToggle";
 
 
@@ -34,19 +34,20 @@ const Button = styled.button`
 
 `;
 
-type AlarmButtonsProps = {
+type ValveButtonsProps = {
   onUpdate: (id: string | number, selectedMode: ModeAction["selectedMode"]) => void;
- selectedMode  : ModeAction["selectedMode"];
+ selectedMode: ModeAction["selectedMode"];
   id : string | number;
 };
 
 
-function AlarmButtons({ onUpdate,selectedMode, id}: AlarmButtonsProps) {
+function ValveButtons({ onUpdate,selectedMode, id}: ValveButtonsProps) {
 
-  const modes = ["home", "outside"] as AlarmMode[];
+  const modes = ["on", "off"] as ValveMode[];
+
 
   return (
-    <div>
+    <>
       <ButtonsContainer>
 
         {modes.map((mode) => (
@@ -60,14 +61,14 @@ function AlarmButtons({ onUpdate,selectedMode, id}: AlarmButtonsProps) {
             }
           
           >
-            { mode === "home" ? "EV" : "DIŞ"}
+            { mode === "on" ? "I" : "0"}
             
           </Button>
         ))}
         
       </ButtonsContainer>
-    </div>
+      </>
   );
 }
 
-export default withToggle(AlarmButtons);
+export default withToggle(ValveButtons);

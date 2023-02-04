@@ -1,23 +1,31 @@
-
 import styled from "styled-components";
-import {useState} from "react";
-import {AlarmMode} from "./ActiveScenario"
 
 
+export const AlarmBox = styled.div`
+  border: 1px solid #c0c0c0;
+  border-radius: 3px;
+  background-color: #3a5460;
+  color: white;
+  font-size: 18px;
+  width: 45px;
+  height: 45px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50px;
+ 
+`;
 
+const AlarmView = ({ selectedMode }: any) => {
 
-const AlarmView = ({mood}:any) => {
+  return (
+    <div>
 
+      {selectedMode === "home" ? <AlarmBox>EV</AlarmBox> : <AlarmBox>DIŞ</AlarmBox>}
 
-    return (
-        <div>
+    
 
-{mood === 'home' ? <div>EV</div> : <div>DIŞ</div>}
+    </div>
+  );
+};
 
-        </div>
-    )
-
-}
-
-export default AlarmView
-
+export default AlarmView;

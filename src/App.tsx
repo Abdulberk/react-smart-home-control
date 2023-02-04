@@ -10,43 +10,68 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-image: url(${process.env.PUBLIC_URL + "/assets/bacc.png"});
-  background-repeat: no-repeat;
+  background-image: url(${process.env.PUBLIC_URL + "/assets/bacc.jpg"});
+  background-repeat: cover;
   background-size: cover;
+  position: relative;
+
+
   width: 1024px;
   height: 600px;
   margin: 0 auto;
   margin-top: 20px;
+  
 
   @media (max-width: 1024px) {
     display: flex;
-
     flex-direction: column;
-    justify-content: space-between;
-
+    justify-content: flex-start;
     width: 100%;
-    height: 100%;
+    height: 100%
+ 
+  }
+
+`;
+
+
+const ScenarioTableContainer = styled.div`
+  width: 100%;
+  max-height: 50%;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    height: 50%;
+    justify-content: center;
+    
+    
 
   }
 `;
 
-const ScenarioTableContainer = styled.div`
-  width: 50%;
-  height: 600px;
-
-  @media (max-width: 1024px) {
-    width: 100%;
-    height: 300px;
-  } ;
-`;
-
 const ResultsTableContainer = styled.div`
-  width: 50%;
-  height: 100%;
+  width: 100%;
+  height: 50%;
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+
   @media (max-width: 1024px) {
     width: 100%;
     height: 50%;
-  } ;
+    margin-top: 30px;
+    justify-content: center;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+  
+  
+  }
 `;
 
 const App: React.FC = () => {

@@ -5,6 +5,9 @@ import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../redux/stores/store";
 import { activateScenario } from "../redux/slices/scenarioSlice";
 import { addScenario } from "../redux/slices/scenarioSlice";
+import { updateMode } from "../redux/slices/scenarioSlice";
+import { v4 as uuidv4 } from 'uuid';
+import { ModeAction } from "../redux/slices/scenarioSlice";
 
 
 
@@ -16,6 +19,7 @@ const MainContainer = styled.div`
   justify-content: center;
   align-items: center;
   row-gap: 10px;
+  padding-top: 10px;
 
   `;
 
@@ -123,24 +127,21 @@ const AddNewScenarioButton = styled.button<ButtonProps>`
 `;
 
 
-
-
-
 const Table = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   width: 500px;
-  height: 460px;
+  height: 450px;
   overflow-y: scroll;
   overflow-x: hidden;
   row-gap: 10px;
 
+
   ::-webkit-scrollbar {
     display: none;
   }
-
 
 `;
 
@@ -151,25 +152,41 @@ const ScenarioTable = () => {
 
   const [sort, setSort] = useState<Sort["sort"]>("all");
   const [newScenarioText, setNewScenarioText] = useState<string>("");
+
+
   const scenarios: IScenario[] = useAppSelector(
     (state) => state.scenario.scenarios
   );
+
 
   const dispatch = useAppDispatch();
 
   const addNewScenario = (scenario: IScenario) => {
     dispatch(addScenario(scenario));
-
+  
     setNewScenarioText("");
 
   };
 
-  const handleActivateScenario = (id: IScenario["id"]) => {
+ 
+
+
+
+ 
+
+  const handleUpdateScenario = useCallback( (id: IScenario["id"], selectedMode: ModeAction["selectedMode"]) => {
+
+    dispatch(updateMode({id, selectedMode}));
+    
+  }, [dispatch]);
+  
+
+
+  const handleActivateScenario =  useCallback( (id: IScenario["id"]) => {
 
     dispatch(activateScenario(id));
-    console.log(id);
-
-  };
+  
+  }, [dispatch]);
 
   const handleScenarioText = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewScenarioText(event.target.value);
@@ -177,8 +194,10 @@ const ScenarioTable = () => {
 
   const handleSort = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSort(event.target.value as Sort["sort"]);
-    console.log(event.target.value);
+   
+
   };
+
 
   const sortedScenarios = useMemo(() => {
     const getScenarios = [...scenarios];
@@ -218,11 +237,10 @@ const ScenarioTable = () => {
                 buttonType: "lamp",
                 icon: process.env.PUBLIC_URL + "/lamp.png",
                 status: "passive",
-                label: newScenarioText ? newScenarioText : "New Scenario",
-                id: scenarios ? scenarios.length + 1 : 0,
+                label: newScenarioText ? newScenarioText : `New Scenario ${scenarios.length + 1}`,
+                id: uuidv4(),
                 selectedMode : "on"
-                
-            
+
               })
             }
           >
@@ -241,8 +259,21 @@ const ScenarioTable = () => {
               value="sortbyname"
               name="sort"
               onChange={handleSort}
+              
             />
           </label>
+
+          <label>
+            Alan
+            <input
+              type="radio"
+              value="sortbytype"
+              name="sort"
+              onChange={handleSort}
+            />
+          </label>
+
+          
 
           <label>
             {" "}
@@ -252,6 +283,7 @@ const ScenarioTable = () => {
               value="sortbytype"
               name="sort"
               onChange={handleSort}
+             
             />
           </label>
         </AddNewScenarioLowerContainer>
@@ -264,7 +296,14 @@ const ScenarioTable = () => {
             type={scenario.type}
             buttonType={scenario.buttonType}
             icon={scenario.icon}
-            onClick = {() => handleActivateScenario(scenario.id)}
+            onActivate = {() => handleActivateScenario(scenario.id)}
+            onUpdate = {handleUpdateScenario}
+            id = {scenario.id}
+            selectedMode = {scenario.selectedMode}
+            degree = {scenario.degree}
+            
+
+         
 
           />
         ))}

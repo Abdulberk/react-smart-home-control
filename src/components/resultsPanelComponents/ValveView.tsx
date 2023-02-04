@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { LampMode } from "./ActiveScenario";
+import {ValveMode } from "./ActiveScenario";
 
-export const LampBox = styled.div`
+export const  ValveBox = styled.div`
   border: 1px solid #c0c0c0;
   border-radius: 3px;
   background-color: #3a5460;
@@ -17,12 +17,12 @@ export const LampBox = styled.div`
 `;
 
 
-const LampView = ({ selectedMode }: any) => {
+const ValveView = ({ selectedMode }: any) => {
 
   return (
     <div>
       {selectedMode ? (
-        <LampBox>{selectedMode === "on" ? "I" : "0"}</LampBox>
+        <ValveBox>{selectedMode === "on" ? "I" : "0"}</ValveBox>
       ) : (
         <></>
       )}
@@ -30,4 +30,4 @@ const LampView = ({ selectedMode }: any) => {
   );
 };
 
-export default  LampView;
+export default  ValveView;

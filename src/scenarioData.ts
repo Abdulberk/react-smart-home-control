@@ -1,23 +1,8 @@
 import Scenario from './redux/interfaces/Scenario'
+
 import { ShutterMode, AlarmMode, LampMode } from './components/resultsPanelComponents/ActiveScenario'
 
-const lampMood: LampMode = {
-    on: 'on',
-    off: 'off'
-  }
 
-  const shutterMood: ShutterMode = {
-    open: 'open',
-    close: 'close',
-    half : 'half'
-    }
-
-    const alarmMood: AlarmMode = {
-        home: 'home',
-        outside: 'outside'
-        }
-
-       
 
 
 var getDatas = (): Scenario[] => {
@@ -30,8 +15,11 @@ return  [
         label : "Garaj 2",
         icon : "./lamp.png",
         buttonType: "lamp",
-        status: "passive",
-        selectedMode :  "off"
+        status: "active",
+        selectedMode :  "off",
+       
+       
+
        
     },
 
@@ -40,9 +28,11 @@ return  [
         type: "lamp",
         label: "lamba",
         icon: "./lamp.png",
-        buttonType: "alarm",
-        status: "passive",
-        selectedMode : "on"
+        buttonType: "lamp",
+        status: "active",
+        selectedMode : "on",
+     
+       
        
     },
 
@@ -53,7 +43,9 @@ return  [
         icon: "./valve.png",
         status: "active",
         buttonType: "valve",
-        selectedMode : "off"
+        selectedMode : "off",
+       
+
 
     },
 
@@ -64,17 +56,24 @@ return  [
         icon: "./bell.png",
         status: "active",
         buttonType: "alarm",
-        selectedMode :  "home"
+        selectedMode :  "home",
+     
+
+       
+
     },
 
     {
         id: 6,
-        type: "shutter",
-        label: "perde1",
-        icon: "./curt.png",
+        type: "thermo",
+        label: "kombi",
+        icon: "./thermo.png",
         status: "active",
-        buttonType: "shutter",
-        selectedMode : "open",
+        buttonType: "thermo",
+        selectedMode : "off",
+        degree : 20,
+        
+       
     },
     {
         id: 7,
@@ -84,6 +83,12 @@ return  [
         status: "active",
         buttonType: "shutter",
         selectedMode : "half",
+      
+
+
+      
+
+        
     },
     {
         id: 8,
@@ -92,16 +97,21 @@ return  [
         icon: "./curt.png",
         status: "active",
         buttonType: "shutter",
-        selectedMode : "off",
+        selectedMode : "open",
+       
+        
     },
     {
         id: 9,
         type: "shutter",
         label: "perde4",
         icon: "./curt.png",
-        status: "passive",
+        status: "active",
         buttonType: "shutter",
-        selectedMode : "open"
+        selectedMode : "open",
+      
+
+        
     },
     {
         id: 10,
@@ -111,7 +121,22 @@ return  [
         status: "active",
         buttonType: "shutter",
         selectedMode : "close",
+        
+        
     },
+    {
+        id: 11,
+        type: "thermo",
+        label: "termometre",
+        icon: "./thermo.png",
+        status: "active",
+        buttonType: "thermo",
+        degree : 2,
+        
+       
+
+    
+    }
 ]
 
 }

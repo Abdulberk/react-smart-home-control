@@ -1,7 +1,9 @@
  
 import React from 'react'
 import styled from 'styled-components'
-import { useState,useRef,useEffect } from 'react'
+import { useState} from 'react'
+import { useAppDispatch } from '../redux/stores/store'
+import { setDegree, DegreeAction } from '../redux/slices/scenarioSlice'
 
 
 const ButtonsContainer = styled.div`
@@ -13,9 +15,7 @@ width: 200px;
 height:100%;
 column-gap: 25px;
 
-
 `
-
 const Button = styled.button`
 
 width: 50px;
@@ -30,9 +30,6 @@ text-align: center;
 padding: 0;
 line-height: 0px;
 
-
-
-
 `
 
 const Degree = styled.label`
@@ -40,34 +37,55 @@ const Degree = styled.label`
 font-size: 30px;
 color: #1FC60F;
 font-family: 'SevenSegment', sans-serif;
-
+letter-spacing: 3px;
 
 `
 
+const ThermoButtons = ({degree,id} :{degree:number,id:string|number} ) => {
+
+  const dispatch = useAppDispatch()
+
+  const [degreem, setDegreem] = useState<number>(degree) 
 
 
-function ThermoButtons() {
 
-  const [degree, setDegree] = useState<number>(21.0) 
+  const updateDegree = ({id,degree} : DegreeAction): void =>  {
 
-  const increaseDegree: () => void = () => {
-      setDegree(prev=>prev+0.5);
+    dispatch(setDegree({id,degree}))
+
   }
+
+  const increaseDegree  = () => {
+    setDegreem(prevDegree => {
+      
+      updateDegree({ id, degree:  prevDegree + 0.5 });
+
+      return prevDegree + 0.5;
+
+    });
+  };
 
   const decreaseDegree: () => void = () => {
-    setDegree(prev=>prev-0.5);
+
+    setDegreem(prevDegree => {
+      
+      updateDegree({ id, degree:  prevDegree - 0.5 });
+
+      return prevDegree - 0.5;
+
+    });
+
   }
-
-
 
   return (
     <div>
       <ButtonsContainer>
 
-        <Button  onClick={decreaseDegree}>-
+        <Button onClick={decreaseDegree}>-
         </Button>
         <Degree>
-          {degree.toFixed(1)}
+
+          { React.useMemo(() => degreem.toFixed(1), [degreem])}
         </Degree>
         <Button onClick={increaseDegree} >+
 
