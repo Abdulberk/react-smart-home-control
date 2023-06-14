@@ -1,7 +1,7 @@
 # Smart Home Control System Tablet Interface
 This project aims to develop a smart home control system application using Redux Toolkit and React. The application integrates with the following devices and features:
 
-#### Functionality
+### Functionality
 The combination of these functionalities provides users with comprehensive control over their smart home devices, allowing them to create customized automation scenarios that align with their needs and preferences.
 
 ##### Adding New Scenarios:
@@ -25,7 +25,7 @@ The application boasts a futuristic visual interface, providing an immersive and
 ##### Type-filtered Sorting: 
 The application offers sorting options based on scenario types. Users can organize their scenarios based on the device or function they control, making it easier to find and manage specific scenarios.
 
-#### Features
+### Features
 ##### Boiler
 It allows adjusting and controlling the temperature of the boiler.
 The temperature value can be set by the user.
@@ -49,8 +49,8 @@ The user can monitor the current temperature.
 It enables controlling the open or closed state of the valve.
 The user can adjust the valve state as desired.
 
-#### Tech Stack
+### Tech Stack
 The smart home control system application is built using the following tech stack:
-###### React, Redux, TypeScript, Styled-Components, CSS, Redux Toolkit, JavaScript
+#### React, Redux, TypeScript, Styled-Components, CSS, Redux Toolkit, JavaScript
 
 
