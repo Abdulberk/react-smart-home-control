@@ -29,7 +29,7 @@ The application offers sorting options based on scenario types. Users can organi
 ###### Boiler
 It allows adjusting and controlling the temperature of the boiler.
 The temperature value can be set by the user.
-Some Markdown text with <span style="color:blue">some *blue* text</span>.
+
 ###### Shutter
 It enables controlling the open or closed state of the curtain.
 The user can adjust the curtain state as desired.
