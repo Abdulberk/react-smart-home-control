@@ -26,7 +26,7 @@ The application boasts a futuristic visual interface, providing an immersive and
 The application offers sorting options based on scenario types. Users can organize their scenarios based on the device or function they control, making it easier to find and manage specific scenarios.
 
 #### Features
-###### Boiler
+##### Boiler
 It allows adjusting and controlling the temperature of the boiler.
 The temperature value can be set by the user.
 
