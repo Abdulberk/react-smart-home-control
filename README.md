@@ -1,7 +1,7 @@
 # Smart Home Control System Tablet Interface
 This project aims to develop a smart home control system application using Redux Toolkit and React. The application integrates with the following devices and features:
 
-### 🟢Functionality
+### Functionality
 The combination of these functionalities provides users with comprehensive control over their smart home devices, allowing them to create customized automation scenarios that align with their needs and preferences.
 
 #### 🟢Adding New Scenarios:
