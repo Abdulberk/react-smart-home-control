@@ -49,8 +49,8 @@ The user can monitor the current temperature.
 It enables controlling the open or closed state of the valve.
 The user can adjust the valve state as desired.
 
-### Tech Stack
+## Tech Stack
 The smart home control system application is built using the following tech stack:
-#### React, Redux, TypeScript, Styled-Components, CSS, Redux Toolkit, JavaScript
+### React, Redux, TypeScript, Styled-Components, CSS, Redux Toolkit, JavaScript
 
 
